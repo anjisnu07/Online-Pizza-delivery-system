@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body {
+            font-family: kanit;
+            background-color: black;
+            color: white;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: black;
+        }
+        tr:nth-child(even) {
+            background-color: #000000;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .empty-cart {
+            color: #777;
+        }
+        .checkout-btn {
+            margin-left: 44%;
+            display: block;
+            width: 150px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .checkout-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .nav{
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+        }
+        .nav hr{
+            color: white;
+            width: 90%;
+            opacity: 0.1;
+        }
+        .bar{
+            height: 50px;
+            width: 90%;
+            display: flex;
+        }
+        .left{
+            display: flex;
+        }
+        .element{
+            padding: 10px;
+        }
+        .right{
+            display: flex;
+            padding-left: 530px;
+        }
+        .cart,.profile{
+            padding: 10px;
+        }
+        .signinbtn{
+            width: 80px;
+            height: 30px;
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50px;
+            margin-top: 5px;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        .heading{
+            color: white;
+            font-size: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="bar">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="" height="50px" width="50px">
+            </div>
+            <div class="left">
+                <div class="element"><a href="{% url 'index' %}">Home</a></div>
+                <div class="element">Menu</div>
+                <div class="element">About Us</div>
+                <div class="element">Contact Us</div>
+                <div class="element">FAQ</div>
+            </div>
+            <div class="right">
+                <div class="cart">
+                    <img src="{% static 'cart.png' %}" alt="" height="25px" width="25px">
+                </div>
+                <div class="profile">
+                    <img src="{% static 'profile.png' %}" alt="" height="25px" width="25px">
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="signinbtn">
+                        <a href="/account/logout">Log Out</a>
+                    </div>
+                {% else %}
+                <div class="signinbtn">
+                    <a href="/account/login">Sign In</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="heading">
+        Your Cart
+    </div>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        {% if order.items.exists %}
+            {% for item in order.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>
+                        <a href="{% url 'update_cart' item.id 'increase' %}">+</a>
+                        <a href="{% url 'update_cart' item.id 'decrease' %}">-</a>
+                        <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4" class="empty-cart">Your cart is empty.</td>
+            </tr>
+        {% endif %}
+    </table>
+    <a href="{% url 'checkout' %}" class="checkout-btn">Checkout</a>
+</body>
+</html>

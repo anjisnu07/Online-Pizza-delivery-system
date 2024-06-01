@@ -1,0 +1,359 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Delivery system</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: black;
+        font-family: kanit;
+    }
+    .nav{
+        
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        flex-direction: column;
+        
+    }
+    .nav hr{
+        color: white;
+        width: 90%;
+        opacity: 0.1;
+    }
+    .bar{
+        height: 50px;
+        width: 90%;
+        display: flex;
+    }
+    .left{
+        display: flex;
+    
+    }
+    .element{
+        padding: 10px;
+    }
+    .right{
+        display: flex;
+        padding-left: 530px;
+    }
+    .cart,.profile{
+        color: white;
+        padding: 10px;
+    }
+    .signinbtn{
+        width: 80px;
+        height: 30px;
+        border: 2px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        margin-top: 5px;
+    }
+   .counting{
+        
+        height: 20px;
+        width: 20px;
+        background-color: red;
+        position: relative;
+        bottom: 45px;
+        left: 20px;
+        text-align: center;
+        border: 1px solid red;
+        border-radius: 50%;
+        padding-bottom: 2px;
+        padding-right: 2px;
+   }
+    .intro{
+        display: flex;
+        height: 200px;
+        
+        width: 70%;
+        margin-left: 220px;
+        margin-top: 190px;
+    }
+    .textsss{
+        font-weight: 800;
+        font-size: 35px;
+        color: white;
+        line-height: 1.2;
+        width: 70%;
+        
+    }
+    .desc1{
+        font-weight: 400;
+        font-size: small;
+        color: #f2f2f2;
+        padding-top:15px ;
+    }
+    .search_bar{
+        margin-top: 20px
+    }
+    .search_bar input[type=text]{
+        height: 20px;
+        width: 320px;
+        background-color: #393939;
+        color: white;
+        border-radius: 15px;
+        border: 2px solid black;
+        padding: 10px;
+    }
+    .search_bar button{
+        background-color: #000000;
+        height: 40px;
+        padding: 10px;
+        width: 80px;
+        border: 2px solid white;
+        color: white;
+        border-radius: 50px;
+        
+    }
+    .img1{
+        width: 20%;
+        margin-left: 10px;
+    }
+    
+    .image_home{
+        
+        border-radius: 20px;
+        margin-top: 130px;
+       
+        
+    }
+    .our_mission{
+        height:90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        font-size: 26px;
+        color: white;
+        
+    }
+
+    .row{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        
+    }
+    .row1{
+        height: 300px;
+        width: 80%;
+        
+        display: flex;
+
+    }
+    .col1{
+        width: 50%;
+        color: white;
+        text-align: start;
+        
+        font-weight:lighter;
+    }
+
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 50px;
+        color: white;
+    }
+    .product-item {
+        width: 25%;
+        margin-bottom: 30px;
+        background-color: #2b2b2b;
+        border-radius: 10px;
+        padding: 20px;
+        position: relative;
+        height: 420px;width: 300px;
+    }
+    .prod_name{
+        font-size: 24px;
+    }
+    .product-img {
+        width: 290px;
+        height: 290px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .product-desc {
+        color: #f2f2f2;
+        font-size: small;
+        margin-bottom: 10px;
+    }
+    .product-price {
+        font-weight: bold;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .special-offer {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff6b6b; /* Change this to your desired color */
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+    .cart-icon {
+        width: 120px;
+        height: 30px;
+        border: 2px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        margin-top: 0px;
+    }
+    .last_d{
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+</style>
+<body>
+    <div class="nav">
+        <div class="bar">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="" height="50px" width="50px">
+            </div>
+            <div class="left">
+                <div class="element">Home</div>
+                <div class="element"><a href="#mission">About Us</a></div>
+                <div class="element">Menu</div>
+                
+                <div class="element">Contact Us</div>
+                <div class="element">FAQ</div>
+            </div>
+            <div class="right">
+                <div class="cart">
+                    <a href="cart"><img src="{% static 'cart.png' %}" alt="" height="25px" width="25px"> </a>
+                    <div class="counting">{{ item_count }}</div>
+                </div>
+                <div class="profile">
+                  <a href="/profile"><img src="{% static 'profile.png' %}" alt="" height="25px" width="25px"></a> 
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="signinbtn">
+                        <a href="account/logout">Log Out</a>
+                    </div>
+                {% else %}
+                <div class="signinbtn">
+                    <a href="account/login">Sign In</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <!-- INtro -->
+    <section>
+            <div class="intro">
+                <div class="textsss">
+                    <div class="header1">
+                        Discover the most mouthwatering pizzas in town!
+                    </div>
+                    <div class="desc1">
+                        Order by flavor, size, or check out our specials!
+                    </div>
+                    <div class="search_bar">
+                        <input type="text" name="" id="" placeholder="What pizza are you craving today?">
+                        <button type="submit">Order</button>
+                    </div>
+                </div>
+                <div class="img1">
+                    <img src="{% static 'intro_1.png' %}" alt="" height="200px" width="200px">
+                </div>
+            </div>
+    </section>
+
+    <!-- AFter INtro Image -->
+    <section>
+        <div class="image_home">
+            <img src="{% static 'Home_pizza.png' %}" alt="" height="250px" width="100%">
+        </div>
+    </section>
+
+    <!-- Our Mission -->
+    <section id="mission">
+        <div class="our_mission">
+            Our Mission
+        </div>
+        <div class="row">
+            <div class="row1">
+                <div class="col1">
+                    <img src="{% static 'Our_mission1.png' %}" alt="" height="300px" width="500px">
+                </div>
+                <div class="col1" style="padding: 25px;">
+                    PizzaExpress, your go-to place for mouth-watering pizzas delivered right to your doorstep. Our pizzas are made with the finest ingredients and a secret family recipe that has been passed down for generations.
+                    <br>
+                    <br>
+                    We believe in creating a memorable experience with every bite, ensuring that each pizza is a slice of happiness for our customers.
+                    <br>
+                    <br>
+                    Join us on this delicious journey and taste the difference at PizzaExpress.
+                </div>
+            </div>
+            <div class="row1">
+                <div class="col1" style="padding: 25px;">
+                    
+                    Experience the Flavor
+                    <br>
+                    <br>
+                    At PizzaExpress, we take pride in our diverse selection of pizzas that cater to every palate. From classic favorites to unique creations, our pizzas are crafted with passion and expertise.
+                    <br>
+                    <br>
+                    Indulge in a slice of heaven with every order and discover why PizzaExpress is more than just a pizza delivery service - it's a culinary experience.
+                </div>
+                <div class="col1">
+                    <img src="{% static 'Our_mission2.png' %}" alt="" height="300px" width="500px">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-container" id="menu">
+        {% for product in products %}
+            <div class="product-item">
+                <img class="product-img" src="{{ product.img.url }}" alt="{{ product.name }}">
+                <div class="prod_name">{{ product.name }}</div>
+                <div class="product-desc">{{ product.description }}</div>
+                {% if product.offer %}
+                    <div class="special-offer">Special Offer</div>
+                {% endif %}
+                <div class="last_d">
+                    <div class="product-price">Price: ${{ product.price }}</div>
+                    <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="cart-icon" type="submit">Add to Cart</button>
+                    </form>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </section>
+    
+</body>
+
+</html>

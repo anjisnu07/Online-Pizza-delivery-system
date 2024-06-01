@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: black;
+        font-family: kanit;
+    }
+    .nav{
+        
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        flex-direction: column;
+        
+    }
+    .nav hr{
+        color: white;
+        width: 90%;
+        opacity: 0.1;
+    }
+    .bar{
+        height: 50px;
+        width: 90%;
+        display: flex;
+    }
+    .left{
+        display: flex;
+    
+    }
+    .element{
+        padding: 10px;
+    }
+    .right{
+        display: flex;
+        padding-left: 530px;
+    }
+    .cart,.profile{
+        color: white;
+        padding: 10px;
+    }
+    .signinbtn{
+        width: 80px;
+        height: 30px;
+        border: 2px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        margin-top: 5px;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+    .full{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+    }
+    .left_acc{
+        
+        height: 100vh;
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        
+        
+    }
+    .middle{
+        border-right: 1px solid white;
+        height: 440px;
+        margin-bottom: 140px;
+        opacity: 0.2;
+    }
+    .header{
+        font-size: 26px;
+        font-weight: 700;
+        margin-left: 60px;
+    }
+    .right_acc{
+        
+        height: 100vh;
+        width: 45%;
+    }
+    .details{
+        margin-top: 60px;
+        margin-left: 50px;
+    }
+    hr{
+        width: 50%;
+        margin-top: 5px;
+    }
+</style>
+<body>
+    <div class="nav">
+        <div class="bar">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="" height="50px" width="50px">
+            </div>
+            <div class="left">
+                <div class="element"><a href="/">Home</a> </div>
+                <div class="element"><a href="/#mission">About Us</a></div>
+                <div class="element"><a href="">Order</a></div>
+                
+                <div class="element">Contact Us</div>
+                <div class="element">FAQ</div>
+            </div>
+            <div class="right">
+                <div class="cart">
+                    <a href="cart"><img src="{% static 'cart.png' %}" alt="" height="25px" width="25px"> </a>
+                    {{ item_count }}
+                </div>
+                <div class="profile">
+                  <a href="/profile"><img src="{% static 'profile.png' %}" alt="" height="25px" width="25px"></a> 
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="signinbtn">
+                        <a href="/account/logout">Log Out</a>
+                    </div>
+                {% else %}
+                <div class="signinbtn">
+                    <a href="account/login">Sign In</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+    </div>
+    <section>
+        <div class="full">
+            <div class="left_acc">
+                <div class="header">
+                    My Account
+                </div>
+                <div class="details">
+
+                    {% if user.is_superuser %}
+                        <div class="element">Username: <br> {{ user.username }}</div>
+                        <div class="element">Email: <br> {{ user.email }}</div>
+                    {% else %}
+                        <div class="element">Name: <br> {{ user.first_name }} {{ user.last_name }} <hr></div>
+                        <div class="element">Username: <br> {{ user.username }} <hr></div>
+                        <div class="element">Email: <br> {{ user.email }} <hr></div>
+                        <div class="element">Delivery Address: <br> MB71,Newtown,kolkata-700091 <hr></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="middle"></div>
+            <div class="right_acc">
+
+            </div>
+        </div>
+    </section>
+</body>
+</html>
