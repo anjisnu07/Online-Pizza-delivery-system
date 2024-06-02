@@ -12,6 +12,26 @@
         margin: 0;
         padding: 0;
     }
+    ::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      /* Track */
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        
+      }
+       
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #282828; 
+        
+      }
+      
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+      }
     body{
         background-color: black;
         font-family: kanit;
@@ -139,6 +159,7 @@
         width: 100%;
         font-size: 26px;
         color: white;
+        font-weight: 800;
         
     }
 
@@ -169,6 +190,13 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+        
+        color: white;
+    }
+    .products{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
         margin: 50px;
         color: white;
     }
@@ -185,7 +213,7 @@
         font-size: 24px;
     }
     .product-img {
-        width: 290px;
+        width: 310px;
         height: 290px;
         border-radius: 10px;
         margin-bottom: 10px;
@@ -230,6 +258,57 @@
         text-decoration: none;
         color: white;
     }
+    #menu{
+        display: flex;
+        flex-direction: column;
+        margin-top: 70px;
+    }
+    
+    .headingpizza{
+        font-size: 32px;
+        font-weight: 800;
+        
+    }
+    .pizzacatag{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
+    }
+    .elementcatag{
+        border: 1px solid white;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        margin-left: 15px;
+        margin-right: 15px;
+        border-radius: 20px;
+        background-color: #282828;
+    }
+    .listcatag{
+        display: flex;
+         
+    }
+    .pizza_name{
+        font-weight: 600;
+        
+        margin-bottom: 5px;
+    }
+    .menucard{
+        background-color: #282828;
+        width: 80%;
+        height: 50px;
+        margin-top: 50px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+    }
 </style>
 <body>
     <div class="nav">
@@ -240,7 +319,7 @@
             <div class="left">
                 <div class="element">Home</div>
                 <div class="element"><a href="#mission">About Us</a></div>
-                <div class="element">Menu</div>
+                <div class="element"><a href="#menu">Menu</a></div>
                 
                 <div class="element">Contact Us</div>
                 <div class="element">FAQ</div>
@@ -334,24 +413,83 @@
     </section>
 
     <section class="product-container" id="menu">
-        {% for product in products %}
-            <div class="product-item">
-                <img class="product-img" src="{{ product.img.url }}" alt="{{ product.name }}">
-                <div class="prod_name">{{ product.name }}</div>
-                <div class="product-desc">{{ product.description }}</div>
-                {% if product.offer %}
-                    <div class="special-offer">Special Offer</div>
-                {% endif %}
-                <div class="last_d">
-                    <div class="product-price">Price: ${{ product.price }}</div>
-                    <form action="{% url 'add_to_cart' product.id %}" method="POST">
-                        {% csrf_token %}
-                        <button class="cart-icon" type="submit">Add to Cart</button>
-                    </form>
+        <div class="pizzacatag">
+            <div class="headingpizza">Pizza Categories</div>
+            <div class="listcatag">
+                <div class="elementcatag">
+                    <div class="pizza_name">
+                        Margherita
+                    </div>
+                    <div class="image_pizza">
+                        <img src="{% static 'pizza6.png' %}" alt="" height="70px" width="70px">
+                    </div>
                 </div>
-                
+                <div class="elementcatag">
+                    <div class="pizza_name">
+                        Pepperoni
+                    </div>
+                    <div class="image_pizza">
+                        <img src="{% static 'pizza2.png' %}" alt="" height="70px" width="70px">
+                    </div>
+                </div>
+                <div class="elementcatag">
+                    <div class="pizza_name">
+                        Vegetarian
+                    </div>
+                    <div class="image_pizza">
+                        <img src="{% static 'pizza3.png' %}" alt="" height="70px" width="70px">
+                    </div>
+                </div>
+                <div class="elementcatag">
+                    <div class="pizza_name">
+                        Seafood
+                    </div>
+                    <div class="image_pizza">
+                        <img src="{% static 'pizza4.png' %}" alt="" height="70px" width="70px">
+                    </div>
+                </div>
+                <div class="elementcatag">
+                    <div class="pizza_name">
+                        Meat lovers
+                    </div>
+                    <div class="image_pizza">
+                        <img src="{% static 'pizza5.png' %}" alt="" height="70px" width="70px">
+                    </div>
+                </div>
+                <div class="elementcatag">
+                    <div class="pizza_name">
+                        Customized
+                    </div>
+                    <div class="image_pizza">
+                        <img src="{% static 'pizza1.png' %}" alt="" height="70px" width="70px">
+                    </div>
+                </div>
             </div>
-        {% endfor %}
+            <div class="menucard">
+                    <img src="{% static 'logo.png' %}" alt="" height="30px" width="30px">
+                    <div style="font-weight: 800; font-size:20px;padding-left:10px">Our Menu</div>
+            </div>
+        </div>
+        <div class="products">
+            {% for product in products %}
+                <div class="product-item">
+                    <img class="product-img" src="{{ product.img.url }}" alt="{{ product.name }}">
+                    <div class="prod_name">{{ product.name }}</div>
+                    <div class="product-desc">{{ product.description }}</div>
+                    {% if product.offer %}
+                        <div class="special-offer">Special Offer</div>
+                    {% endif %}
+                    <div class="last_d">
+                        <div class="product-price">Price: ${{ product.price }}</div>
+                        <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="cart-icon" type="submit">Add to Cart</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        </div>
     </section>
     
 </body>
