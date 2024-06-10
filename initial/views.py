@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Product, Order, OrderItem
-
+from django.core.exceptions import ObjectDoesNotExist
 def index(request):
     products=Product.objects.all()
     order = get_user_order(request)
     
     # Get the total number of items in the cart
+    
     item_count = order.items.count()
     return render(request,'index.html',{'products':products,'item_count': item_count})
+   
 
 
 def get_user_order(request):
@@ -18,8 +20,14 @@ def get_user_order(request):
         session_key = request.session.session_key
         if not session_key:
             request.session.create()
-        order, created = Order.objects.get_or_create(session_key=request.session.session_key, is_ordered=False)
+        try:
+            # Retrieve the latest order for the session key
+            order = Order.objects.filter(session_key=session_key, is_ordered=False).latest('created_at')
+        except ObjectDoesNotExist:
+            # If no order exists for the session key, create a new one
+            order = Order.objects.create(session_key=session_key, is_ordered=False)
     return order
+
 
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -33,7 +41,8 @@ def add_to_cart(request, product_id):
 
 def view_cart(request):
     order = get_user_order(request)
-    return render(request, 'cart.html', {'order': order})
+    length=order.items.count()
+    return render(request, 'cart.html', {'order': order,'length':length})
 
 def update_cart(request, item_id, action):
     order_item = get_object_or_404(OrderItem, id=item_id)

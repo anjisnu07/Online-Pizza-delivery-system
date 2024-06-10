@@ -3,9 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .notification {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Order Successful</h1>
-    <p>Thank you for your order!</p>
+    <div class="container">
+        <h1>Order Successful</h1>
+        <p>Thank you for your order!</p>
+        <div class="notification" id="notification">Redirecting you in <span id="countdown">10</span> seconds...</div>
+        
+    </div>
+
+    <script>
+        // Redirect after 10 seconds
+        setTimeout(function() {
+            window.location.href = "/";
+        }, 10000);
+
+        // Countdown timer
+        var timeLeft = 10;
+        var countdown = document.getElementById('countdown');
+
+        function updateCountdown() {
+            timeLeft--;
+            countdown.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+            }
+        }
+
+        var timer = setInterval(updateCountdown, 1000);
+
+        // Show notification
+        var notification = document.getElementById('notification');
+        notification.style.display = 'block';
+    </script>
 </body>
 </html>

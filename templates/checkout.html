@@ -88,11 +88,26 @@
         text-decoration: none;
         color: white;
     }
+    .veryfull{
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
         .full{
             display: flex;
-            justify-content: center;
+            
             align-items: center;
             flex-direction: column;
+            width: 60%;
+            background-color: #282828;
+            margin-top: 50px;
+            
+            border-radius: 20px;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            
         }
         .header{
             font-size: 26px;
@@ -101,26 +116,34 @@
             margin-bottom: 30px;
         }
         .order_summary{
-            width: 60%;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             
-            
+            margin-bottom: 20px;
             font-size: 18px;
             
         }
         .prod_name{
-            width: 50%;
-            padding-left: 10px;
-            padding-right: 10px;
+            width: 40%;
+            
             font-size: 18px;
             padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .prod_image{
+            height: 50px;
+            width: 50px;
+            padding: 15px;
         }
         .quantity{
             width: 15%;
             padding-left: 10px;
             padding-right: 10px;
             font-size: 18px;
+            display: flex;
+            align-items: center;
             
         }
         .more{
@@ -130,17 +153,22 @@
             font-size: 12px;
             text-align: end;
             padding-top: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            padding-right: 10px;
         }
         .price{
             width: 10%;
             
             padding-right: 10px;
             font-size: 18px;
-            
+            display: flex;
+            align-items: center;
         }
         .prod_name_head{
             width: 50%;
-            padding-left: 10px;
+            padding-left: 20px;
             padding-right: 10px;
             font-size: 18px;
             
@@ -162,20 +190,7 @@
             margin-right: 10px;
             
         }
-        .total_bill{
-            width: 100vw;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            
-        }
-        .total{
-            display: flex;
-            justify-content: space-evenly;
-            width: 60%;
-            margin-left: 330px;
-            
-        }
+        
         .btn{
             width: 200px;
             height: 30px;
@@ -187,65 +202,70 @@
             margin-top: 5px;
             margin-left: 150px;
         }
-        form {
-            margin-top: 30px;
+        .addbill{
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            color: white;
+            width: 100%;
+            margin-top:40px;
+        }
+        .nothing{
+            border-left: 0.1px solid white;
+            opacity: 0.3;
+        }
+        .add{
+            width: 49%;
+            display: flex;
+            flex-direction: column;
+            padding-left: 50px;
+        }
+        .bill{
+            width: 49%;
+            display: flex;
             flex-direction: column;
             
-        }
-        
-        label {
-            margin-top: 10px;
-            margin-right: 10px;
-            font-weight: 300;
-        }
-        
-        input[type="text"],
-        input[type="number"] {
-            width: 300px;
-            height: 20px;
-            margin-top: 5px;
-            border: 1px solid white;
-            border-radius: 10px;
-            background-color: black;
-            color: white;
-            padding: 10px;
-            background-color: #202020;
-            
-        }
-        
-        input[type="text"]:focus,
-        input[type="number"]:focus {
-            outline: none;
-        }
-        
-        button[type="submit"] {
-            width: 200px;
-            height: 40px;
-            border: 2px solid white;
-            border-radius: 5px;
-            background-color: black;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 20px;
-            margin-left: 20%;
-        }
-        
-        button[type="submit"]:hover {
-            background-color: #333;
-        }
-        .payment-options {
-            display: flex;
             align-items: center;
+            font-size: large;
+            font-weight: 700;
+        }
+        .subtotal{
+            font-weight: 600;
+        }
+        .headdelv{
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .content{
+            color: white;
+        }
+        td{
+            padding-left: 20px;
+            padding-right: 20px;
+            
+        }
+        .place-order-btn {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
         
-        .payment-options input[type="radio"] {
-            margin-right: 10px; 
-            margin-top: 10px;
-            
+        .place-order-btn button {
+            width: 200px;
+            height: 50px;
+            background-color: #f1f1f1;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .place-order-btn button:hover {
+            background-color: rgb(12, 120, 0);
+            color: white;
         }
         
     </style>
@@ -288,78 +308,94 @@
     </div>
     
     
-    <div class="full" id="invoiceSection">
-        <div class="header">Order Summary</div>
-        <div class="order_summary">
-            <div class="prod_name_head">Product Name <hr style="width: 30%;"></div>
-            
-            <div class="quantity_head">Quantity <hr style="width: 60%;"></div>
-            
-            <div class="more"></div>
-            
-            <div class="price_head">Price <hr style="width: 55%;"></div>
-            
-        </div>
-        {% if order.items.exists %}
-                {% for item in order.items.all %}
-                    <div class="order_summary">
-                        <div class="prod_name">{{item.product.name}}</div>
-                        <div class="quantity">{{item.quantity}}</div>
-                        {% if item.quantity|add:'-1' > 0 %}
-                            <div class="more">{{item.quantity}} * {{item.product.price}} =</div>
-                            <div class="price">{{ item.quantity|multiply:item.product.price }}</div>
-                        {% else %}
-                        <div class="more"></div>
-                        <div class="price">{{item.product.price}}</div>
-                        {% endif %}
+    <div class="veryfull">
+        <div class="full" id="invoiceSection">
+            <div class="header">Order Summary</div>
+            <div class="order_summary">
+                <div class="prod_name_head">Product Name <hr style="width: 30%;"></div>
+                
+                <div class="quantity_head">Quantity <hr style="width: 60%;"></div>
+                
+                <div class="more"></div>
+                
+                <div class="price_head">Price <hr style="width: 55%;"></div>
+                
+            </div>
+            {% if order.items.exists %}
+                    {% for item in order.items.all %}
+                        <div class="order_summary">
+                            <div class="prod_image">
+                                <img src="{{ item.product.img.url }}" alt="{{ item.product.name }}" height="50px" width="50px">
+                            </div>
+                            <div class="prod_name">{{item.product.name}}</div>
+                            <div class="quantity">{{item.quantity}}</div>
+                            {% if item.quantity|add:'-1' > 0 %}
+                                <div class="more">{{item.quantity}} * {{item.product.price}} =</div>
+                                <div class="price">{{ item.quantity|multiply:item.product.price }}</div>
+                            {% else %}
+                            <div class="more"></div>
+                            <div class="price">{{item.product.price}}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="addbill">
+                <div class="add">
+                    <div class="headdelv">
+                        Delivery Address
                     </div>
-                {% endfor %}
-        {% endif %}
-    </div>
-    <div class="total_bill">
-        {% if not total_price %}
-            <div class="total" style="margin-top: 40px; margin-right:200px">
-                Your Cart is empty.
+                    <div class="content">{{ order.user.first_name }} {{  order.user.last_name }}</div>
+                    <div class="content">{{ order.user.email }}</div>
+                    <div class="content">+919762345674</div>
+                    <div class="content">MB71,Newtown,kolkata-700091</div>
+                </div>
+                <div class="nothing"></div>
+                <div class="bill">
+                    
+                    <table>
+                        <tr>
+                          <td style="font-weight: 400; font-size:16px;">Subtotal</td>
+                        
+                          <td style="font-weight: 400; font-size:16px;">${{ total_price }}</td>
+                        </tr>
+                        <tr>
+                          <td style="font-weight: 400; font-size:16px;">Delivery fee</td>
+                      
+                          <td style="font-weight: 400; font-size:16px;">$5</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                        
+                            <td>${{ total_price|add:5 }}</td>
+                          </tr>
+                      </table>
+                      <div class="place-order-btn">
+                        <a href="/order_success/"> <button>Place Order</button></a>
+                        
+                    </div>
+                        
+                    
+                </div>
             </div>
-            <div class="btn">
-               <a href="/">Add items in the cart.</a> 
-            </div>
-        {% else %}
-        <div class="total">
-            <div class="item">Total:</div>
-            <div class="bill">${{ total_price }}</div>
         </div>
-        <form method="post">
-            {% csrf_token %}
-            <label for="">City</label>
-            <input type="text" name="" id="" required>
-            <label for="">Area</label>
-            <input type="text" name="" id="" required>
-            <label for="">Landmark</label>
-            <input type="text" name="" id="" required>
-            <label for="">Flat no:</label>
-            <input type="text" name="" id="" required>
-            <label for="">Pin code:</label>
-            <input type="number" name="" id="" minlength="6" maxlength="6" required>
-            <label for="">Payment</label>
-            <div class="payment-options">
-                <input type="radio" name="gpay" id="gpay-google">
-                <label for="gpay-google">UPI</label>
-
-                <input type="radio" name="gpay" id="gpay-phone">
-                <label for="gpay-phone">Card</label>
-
-                <input type="radio" name="gpay" id="gpay-cash">
-                <label for="gpay-cash">Cash</label>
-            </div>
-            <button type="submit">Place Order</button>
-        </form>
-        {% endif %}
+        
     </div>
-    
+   
+</div>
     
     
 
-    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dynamicHrs = document.querySelectorAll('.dynamic-hr');
+        dynamicHrs.forEach(hr => {
+            const content = hr.previousSibling.textContent.trim();
+            const length = content.length;
+            // Adjust this ratio as necessary
+            const ratio = 9; 
+            hr.style.width = (length * ratio) + 'px';
+        });
+    });
+</script>
 </body>
 </html>

@@ -75,12 +75,14 @@
         }
 
         .nav{
+        
             height: 70px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             flex-direction: column;
+            
         }
         .nav hr{
             color: white;
@@ -94,6 +96,7 @@
         }
         .left{
             display: flex;
+        
         }
         .element{
             padding: 10px;
@@ -103,6 +106,7 @@
             padding-left: 530px;
         }
         .cart,.profile{
+            color: white;
             padding: 10px;
         }
         .signinbtn{
@@ -119,6 +123,8 @@
             text-decoration: none;
             color: white;
         }
+        
+        
         .heading{
             color: white;
             font-size: 36px;
@@ -135,18 +141,20 @@
                 <img src="{% static 'logo.png' %}" alt="" height="50px" width="50px">
             </div>
             <div class="left">
-                <div class="element"><a href="{% url 'index' %}">Home</a></div>
-                <div class="element">Menu</div>
-                <div class="element">About Us</div>
-                <div class="element">Contact Us</div>
-                <div class="element">FAQ</div>
+                <div class="element"><a href="/">Home</a> </div>
+                <div class="element" style="width: 80px; "><a href="/#mission">About Us</a></div>
+                <div class="element"><a href="/#menu">Menu</a></div>
+                
+                <div class="element" style="width:90px;"><a href="/#contact">Contact Us</a></div>
+                <div class="element"><a href="/#faq">FAQ</a></div>
             </div>
             <div class="right">
                 <div class="cart">
-                    <img src="{% static 'cart.png' %}" alt="" height="25px" width="25px">
+                    <a href="/cart"><img src="{% static 'cart.png' %}" alt="" height="25px" width="25px"> </a>
+                    {{ item_count }}
                 </div>
                 <div class="profile">
-                    <img src="{% static 'profile.png' %}" alt="" height="25px" width="25px">
+                  <a href="/profile"><img src="{% static 'profile.png' %}" alt="" height="25px" width="25px"></a> 
                 </div>
                 {% if user.is_authenticated %}
                     <div class="signinbtn">
@@ -154,7 +162,7 @@
                     </div>
                 {% else %}
                 <div class="signinbtn">
-                    <a href="/account/login">Sign In</a>
+                    <a href="account/login">Sign In</a>
                 </div>
                 {% endif %}
             </div>
@@ -190,6 +198,8 @@
             </tr>
         {% endif %}
     </table>
+    {% if length %}
     <a href="{% url 'checkout' %}" class="checkout-btn">Checkout</a>
+    {% endif %}
 </body>
 </html>
